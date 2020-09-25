@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
-
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 interface Validacion{
@@ -38,7 +37,6 @@ class Conjunto implements Validacion {
 		super();
 		this.elementos = elementos;
 	}
-
 	public Conjunto() {
 	}
 
@@ -74,18 +72,6 @@ class Conjunto implements Validacion {
 	public void mostrarElementos() {
 		System.out.println(this.getElementos());
 	}
-	public Conjunto union(Conjunto cj1, Conjunto cj2) {
-		
-		ArrayList elementos1 = cj1.getElementos();
-		ArrayList elementos2 = cj2.getElementos();
-		elementos2.addAll(elementos1);
-		
-		Collections.sort(elementos2);
-		elementos2 = this.eliminarDuplicados(elementos2);
-		
-		Conjunto union = new Conjunto(elementos2);
-		return union;
-	}
 	public <T> ArrayList<T> eliminarDuplicados(ArrayList<T> elementos) {
 		Set<T> set = new LinkedHashSet<>();   
         set.addAll(elementos); 
@@ -93,9 +79,46 @@ class Conjunto implements Validacion {
         elementos.addAll(set);
         return elementos;
 	}
+	
+	public Conjunto union(Conjunto cj1, Conjunto cj2) {
+		ArrayList elementos1 = cj1.getElementos();
+		ArrayList elementos2 = cj2.getElementos();
+		
+		ArrayList<Integer> elementos3 = new ArrayList<>();
+		elementos3.addAll(elementos1);
+		elementos3.addAll(elementos2);
+		
+		Collections.sort(elementos3);
+		elementos3 = this.eliminarDuplicados(elementos3);
+		
+		Conjunto union = new Conjunto(elementos3);
+		return union;
+	}
+	public Conjunto interseccion(Conjunto cj1, Conjunto cj2) {
+		ArrayList elementos1 = cj1.getElementos();
+		ArrayList elementos2 = cj2.getElementos();
+		
+		Collections.sort(elementos1);
+		elementos1=this.eliminarDuplicados(elementos1);
+		Collections.sort(elementos2);
+		elementos2=this.eliminarDuplicados(elementos2);
+		
+		ArrayList<Integer> arr = new ArrayList<>();
+		
+		for (int i = 0; i < elementos1.size(); i++) {
+			for (int j = 0; j < elementos2.size(); j++) {
+				if (elementos1.get(i).equals(elementos2.get(j))) {
+					arr.add((Integer) elementos1.get(i));
+				}
+			}
+		}
+	
+		Conjunto ret = new Conjunto(arr);
+		
+		return ret;
+	}
 
 }
-
 
 public class PruebaVectoresConjunto {
 
@@ -103,13 +126,16 @@ public class PruebaVectoresConjunto {
 		
 		Conjunto cj0 = new Conjunto();
 
-		int elementos[]= {1,2,3};
+		int elementos1[]= {1,2,3,4};
+		int elementos2[]= {2,3,4,5};
 		
-        Conjunto cj1 = new Conjunto(cj0.llenarLista(elementos));
-        Conjunto cj2 = new Conjunto(cj0.llenarLista());
+        Conjunto cj1 = new Conjunto(cj0.llenarLista(elementos1));
+        Conjunto cj2 = new Conjunto(cj0.llenarLista(elementos2));
         
-        Conjunto cj3 = cj0.union(cj1, cj2);
-        cj3.mostrarElementos();
+        cj0 = cj0.union(cj1, cj2);
+        cj0.mostrarElementos();
+        cj0 = cj0.interseccion(cj1, cj2);
+        cj0.mostrarElementos();
 	}
 
 }
