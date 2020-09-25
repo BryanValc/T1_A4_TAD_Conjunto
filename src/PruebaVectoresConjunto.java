@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
@@ -84,14 +85,14 @@ class Conjunto implements Validacion {
 		ArrayList elementos1 = cj1.getElementos();
 		ArrayList elementos2 = cj2.getElementos();
 		
-		ArrayList<Integer> elementos3 = new ArrayList<>();
-		elementos3.addAll(elementos1);
-		elementos3.addAll(elementos2);
+		ArrayList<Integer> arr = new ArrayList<>();
+		arr.addAll(elementos1);
+		arr.addAll(elementos2);
 		
-		Collections.sort(elementos3);
-		elementos3 = this.eliminarDuplicados(elementos3);
+		Collections.sort(arr);
+		arr = this.eliminarDuplicados(arr);
 		
-		Conjunto union = new Conjunto(elementos3);
+		Conjunto union = new Conjunto(arr);
 		return union;
 	}
 	public Conjunto interseccion(Conjunto cj1, Conjunto cj2) {
@@ -119,7 +120,21 @@ class Conjunto implements Validacion {
 		return ret;
 	}
 	public Conjunto diferencia(Conjunto cj1, Conjunto cj2) {
-		return null;
+		ArrayList elementos1 = cj1.getElementos();
+		ArrayList elementos2 = cj2.getElementos();
+		
+		Collections.sort(elementos1);
+		elementos1=this.eliminarDuplicados(elementos1);
+		Collections.sort(elementos2);
+		elementos2=this.eliminarDuplicados(elementos2);
+		
+		ArrayList<Integer> arr = new ArrayList<>();
+		arr.addAll(elementos1);
+		arr.removeAll(elementos2);
+		
+		Conjunto diferencia = new Conjunto(arr);
+		
+		return diferencia;
 	}
 }
 
@@ -129,17 +144,86 @@ public class PruebaVectoresConjunto {
 		
 		Conjunto cj0 = new Conjunto();
 
-		int elementos1[]= {1,2,3,4};
-		int elementos2[]= {2,3,4,5};
+		ArrayList<Integer> x = new ArrayList<>();//conjunto A
+		int cc=0;
+		for (int i = 1; i <= 100; i++) {
+			for (int j = 1; j <= i; j++) {
+				if (i%j==0) {
+					cc+=1;
+				}
+			}
+			if (cc==2) {
+				x.add(i);
+			}
+			cc=0;
+		}
+		Conjunto cja = new Conjunto(x);
+		System.out.println("Conjunto A: ");
+		cja.mostrarElementos();
 		
-        Conjunto cj1 = new Conjunto(cj0.llenarLista(elementos1));
-        Conjunto cj2 = new Conjunto(cj0.llenarLista(elementos2));
-        
-        cj0 = cj0.union(cj1, cj2);
-        cj0.mostrarElementos();
-        cj0 = cj0.interseccion(cj1, cj2);
-        cj0.mostrarElementos();
-        
+		ArrayList<Integer> y = new ArrayList<>();//conjunto B
+		int z = 350;
+		for (int i = 1; i <= z; i++) {
+			if (z%i==0) {
+				y.add(i);
+			}
+		}
+		Conjunto cjb = new Conjunto(y);
+		System.out.println("Conjunto B: ");
+		cjb.mostrarElementos();
+		System.out.println("union AB:");
+		cj0 = cj0.union(cja, cjb);
+		cj0.mostrarElementos();
+		System.out.println("Intersección AB: ");
+		cj0 = cj0.interseccion(cja, cjb);
+		cj0.mostrarElementos();
+		System.out.println("Diferencia AB: ");
+		cj0 = cj0.diferencia(cja, cjb);
+		cj0.mostrarElementos();
+		System.out.println("Diferencia BA: ");
+		cj0 = cj0.diferencia(cjb, cja);
+		cj0.mostrarElementos();
+		System.out.println("==========MENU==========");
+		byte opc = 0;
+		
+		do {
+			System.out.println("1)Llenar lista 1"
+					+ "\n 2)Llenar lista 2"
+					+ "\n 3)Mostrar elementos lista 1"
+					+ "\n 4)Mostrar elementos lista 2"
+					+ "\n 5)Mostrar union de las listas"
+					+ "\n 6)Mostrar interseccion de las listas"
+					+ "\n 7)Mostrar diferencia lista 1 - lista 2"
+					+ "\n 8)Mostrar diferencia lista 2 - lista 1"
+					+ "\n 9)Salir");
+			opc=(byte) Validacion.validacionNatural();
+			
+			switch (opc) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+			default:
+				System.out.println("entrada no válida");
+				break;
+			}
+			
+		} while (opc!=8);
+		System.out.println("fin de la ejecución");
+		
+		
 	}
 
 }
