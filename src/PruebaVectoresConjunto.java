@@ -104,16 +104,13 @@ class Conjunto implements Validacion {
 		elementos2=this.eliminarDuplicados(elementos2);
 		
 		ArrayList<Integer> arr = new ArrayList<>();
-		
-		int k = 0;
+	
 		for (int i = 0; i < elementos1.size(); i++) {
 			for (int j = 0; j < elementos2.size(); j++) {
 				if (elementos1.get(i).equals(elementos2.get(j))) {
 					arr.add((Integer) elementos1.get(i));
+					break;
 				}
-				k+=1;
-				System.out.println("it "+k);
-				continue;
 			}
 		}
 	
