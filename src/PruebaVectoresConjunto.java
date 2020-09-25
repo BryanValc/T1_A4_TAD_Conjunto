@@ -50,7 +50,20 @@ class Conjunto implements Validacion {
 	}
 	
 	public ArrayList<Integer> llenarLista(){
-		return null;
+		
+		System.out.println("cantidad de elementos: ");
+		int cnt = Validacion.validacionNatural();
+		int elementos[] = {};
+		for (int i = 0; i < cnt; i++) {
+			System.out.println("elemento "+(i+1)+": ");
+			elementos=Arrays.copyOf(elementos, elementos.length+1);
+			elementos[elementos.length-1]=Validacion.validacionNatural();
+		}
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i: elementos) {
+            arr.add(i);
+        }
+		return arr;
 	}
 	public void mostrarElementos() {
 		System.out.println(this.getElementos());
@@ -83,24 +96,25 @@ public class PruebaVectoresConjunto {
 	public static void main(String[] args) {
 		
 		Conjunto cj0 = new Conjunto();
-		
+		/*
 		int[] elementos1 = {1, 3, 2, 4, 6, 5, 7, 0};
         ArrayList<Integer> arr1 = new ArrayList<>();
         for (int i: elementos1) {
             arr1.add(i);
-        }
-        Conjunto cj1 = new Conjunto(arr1);
+        }*/
+        Conjunto cj1 = new Conjunto(cj0.llenarLista());
         
+        /*
         int[] elementos2 = {1, 9, 8, 5, 7, 4, 3, 7};
         ArrayList<Integer> arr2 = new ArrayList<>();
         for (int i: elementos2) {
             arr2.add(i);
-        }
-        Conjunto cj2 = new Conjunto(arr2);
+        }*/
+        
+        Conjunto cj2 = new Conjunto(cj0.llenarLista());
         
         Conjunto cj3 = cj0.union(cj1, cj2);
         cj3.mostrarElementos();
-        
 	}
 
 }
