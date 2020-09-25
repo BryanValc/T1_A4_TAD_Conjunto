@@ -32,7 +32,7 @@ interface Validacion{
 }
 
 class Conjunto implements Validacion {
-	private ArrayList<Integer> elementos;
+	private ArrayList<Integer> elementos= new ArrayList<>();
 
 	public Conjunto(ArrayList<Integer> elementos) {
 		super();
@@ -184,43 +184,60 @@ public class PruebaVectoresConjunto {
 		cj0 = cj0.diferencia(cjb, cja);
 		cj0.mostrarElementos();
 		System.out.println("==========MENU==========");
+		System.out.println();
 		byte opc = 0;
 		
+		Conjunto cj1 = new Conjunto();
+		Conjunto cj2 = new Conjunto();
+		
 		do {
-			System.out.println("1)Llenar lista 1"
+			System.out.println(" 1)Llenar lista 1"
 					+ "\n 2)Llenar lista 2"
 					+ "\n 3)Mostrar elementos lista 1"
 					+ "\n 4)Mostrar elementos lista 2"
 					+ "\n 5)Mostrar union de las listas"
 					+ "\n 6)Mostrar interseccion de las listas"
-					+ "\n 7)Mostrar diferencia lista 1 - lista 2"
-					+ "\n 8)Mostrar diferencia lista 2 - lista 1"
+					+ "\n 7)Mostrar diferencia lista 1 menos lista 2"
+					+ "\n 8)Mostrar diferencia lista 2 menos lista 1"
 					+ "\n 9)Salir");
 			opc=(byte) Validacion.validacionNatural();
 			
 			switch (opc) {
 			case 1:
+				cj1= new Conjunto(cj0.llenarLista());
 				break;
 			case 2:
+				cj2= new Conjunto(cj0.llenarLista());
 				break;
 			case 3:
+				cj1.mostrarElementos();
 				break;
 			case 4:
+				cj2.mostrarElementos();
 				break;
 			case 5:
+				cj0 = cj0.union(cj1, cj2);
+				cj0.mostrarElementos();
 				break;
 			case 6:
+				cj0 = cj0.interseccion(cj1, cj2);
+				cj0.mostrarElementos();
 				break;
 			case 7:
+				cj0 = cj0.diferencia(cj1, cj2);
+				cj0.mostrarElementos();
 				break;
 			case 8:
+				cj0 = cj0.diferencia(cj2, cj1);
+				cj0.mostrarElementos();
 				break;
+			case 9:break;
 			default:
 				System.out.println("entrada no válida");
 				break;
 			}
 			
-		} while (opc!=8);
+		} while (opc!=9);
 		System.out.println("fin de la ejecución");
 		
 		
