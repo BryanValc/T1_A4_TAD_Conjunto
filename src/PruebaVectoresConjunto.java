@@ -2,11 +2,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
-class Conjunto {
+interface Validacion{
+	Scanner input = new Scanner(System.in);
+	public static int validacionNatural() {
+		int ret = 0;
+		boolean err = false;
+		do {
+			try {
+				ret = input.nextInt();
+			} catch (java.util.InputMismatchException e) {
+				System.out.println("entrada no valida, intente de nuevo:");
+				input.nextLine();
+				err=true;
+			}
+			if (ret>0) {
+				err=false;
+			}else {
+				System.out.println("solo números naturales");
+				err=true;
+			}
+		}while(err);
+		return ret;
+	}
+}
+
+class Conjunto implements Validacion {
 	private ArrayList<Integer> elementos;
 
 	public Conjunto(ArrayList<Integer> elementos) {
@@ -24,6 +49,9 @@ class Conjunto {
 		this.elementos = elementos;
 	}
 	
+	public ArrayList<Integer> llenarLista(){
+		return null;
+	}
 	public void mostrarElementos() {
 		System.out.println(this.getElementos());
 	}
@@ -72,7 +100,6 @@ public class PruebaVectoresConjunto {
         
         Conjunto cj3 = cj0.union(cj1, cj2);
         cj3.mostrarElementos();
-        
         
 	}
 
