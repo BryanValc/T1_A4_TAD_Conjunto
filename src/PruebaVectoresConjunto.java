@@ -7,11 +7,14 @@ import java.util.Set;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 class Conjunto {
-	private ArrayList<int[]> elementos;
+	private ArrayList<Integer> elementos;
 
-	public Conjunto(ArrayList<int[]> elementos) {
+	public Conjunto(ArrayList<Integer> elementos) {
 		super();
 		this.elementos = elementos;
+	}
+
+	public Conjunto() {
 	}
 
 	public ArrayList getElementos() {
@@ -25,17 +28,16 @@ class Conjunto {
 		System.out.println(this.getElementos());
 	}
 	public Conjunto union(Conjunto cj1, Conjunto cj2) {
+		
 		ArrayList elementos1 = cj1.getElementos();
-		Collections.sort(elementos1);
-		elementos1 = this.eliminarDuplicados(elementos1);
-		System.out.println(elementos1);
-		
 		ArrayList elementos2 = cj2.getElementos();
-		Collections.sort(elementos2);	
-		elementos2= this.eliminarDuplicados(elementos2);
-		System.out.println(elementos2);
+		elementos2.addAll(elementos1);
 		
-		return null;
+		Collections.sort(elementos2);
+		elementos2 = this.eliminarDuplicados(elementos2);
+		
+		Conjunto union = new Conjunto(elementos2);
+		return union;
 	}
 	public <T> ArrayList<T> eliminarDuplicados(ArrayList<T> elementos) {
 		Set<T> set = new LinkedHashSet<>();   
@@ -52,16 +54,26 @@ public class PruebaVectoresConjunto {
 
 	public static void main(String[] args) {
 		
-		int[] elementos = {1, 3, 2, 4, 6, 5, 7, 0, 9, 8, 5, 7, 4, 3, 6, 7};
-        ArrayList<Integer> arr = new ArrayList<>();
-        
-        for (int i: elementos) {
-            arr.add(i);
+		Conjunto cj0 = new Conjunto();
+		
+		int[] elementos1 = {1, 3, 2, 4, 6, 5, 7, 0};
+        ArrayList<Integer> arr1 = new ArrayList<>();
+        for (int i: elementos1) {
+            arr1.add(i);
         }
+        Conjunto cj1 = new Conjunto(arr1);
         
-        System.out.println(arr);
-        System.out.println(arr.size());
-        System.out.println(elementos.length);
+        int[] elementos2 = {1, 9, 8, 5, 7, 4, 3, 7};
+        ArrayList<Integer> arr2 = new ArrayList<>();
+        for (int i: elementos2) {
+            arr2.add(i);
+        }
+        Conjunto cj2 = new Conjunto(arr2);
+        
+        Conjunto cj3 = cj0.union(cj1, cj2);
+        cj3.mostrarElementos();
+        
+        
 	}
 
 }
