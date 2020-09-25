@@ -105,11 +105,15 @@ class Conjunto implements Validacion {
 		
 		ArrayList<Integer> arr = new ArrayList<>();
 		
+		int k = 0;
 		for (int i = 0; i < elementos1.size(); i++) {
 			for (int j = 0; j < elementos2.size(); j++) {
 				if (elementos1.get(i).equals(elementos2.get(j))) {
 					arr.add((Integer) elementos1.get(i));
 				}
+				k+=1;
+				System.out.println("it "+k);
+				continue;
 			}
 		}
 	
@@ -117,7 +121,9 @@ class Conjunto implements Validacion {
 		
 		return ret;
 	}
-
+	public Conjunto diferencia(Conjunto cj1, Conjunto cj2) {
+		return null;
+	}
 }
 
 public class PruebaVectoresConjunto {
@@ -136,6 +142,7 @@ public class PruebaVectoresConjunto {
         cj0.mostrarElementos();
         cj0 = cj0.interseccion(cj1, cj2);
         cj0.mostrarElementos();
+        
 	}
 
 }
